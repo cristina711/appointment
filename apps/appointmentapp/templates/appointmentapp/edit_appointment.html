@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+            <h2>Edit Appointment</h2>
+            
+            <form action='/appointments/{{appointment.id}}/update' method='POST'>
+            {% csrf_token %}
+            Tasks:<input type="text" name="tasks" value="{{appointment.tasks}}">
+            <p></p>
+            Status:<select type="" name="status">
+            
+            <option value="Done">Done</option>
+            <option value="Pending">Pending</option>
+            <option value="Missed">Missed</option>
+           
+            </select>
+            <p></p>
+            Date:<input type="date" name="date" value="{{appointment.date}}">
+            <p></p>
+            Time:<input type="time" name="time" value="{{appointment.time}}">
+            <p></p>
+            <input type="submit" value="Update">
+            </form>
+    </body>
+</html>

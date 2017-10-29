@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <title>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                </style>
+    </title>
+    <head>
+            <meta charset="UTF-8">
+            <title>Success</title>
+    </head>
+
+    <body>
+        <h1>Welcome! {{user.first_name}}</h1>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+   <h1>Here are your appointments for today, {{today}}</h1>
+
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tasks</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in current_appointments %}
+                        <tr>
+                            <td><p>{{appointment.tasks}}</p></td>
+                            <td><p>{{appointment.time}}</p></td>
+                            <td><p>{{appointment.status}}</p></td>
+                            <td><a href="/appointments/{{appointment.id}}/edit"><button>Edit</button></a></td>
+                            <td><a href="/appointments/{{appointment.id}}/delete"><button>Delete</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+
+
+<h1>Your Other appointments:</h1>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Tasks</th>
+                <th>Time</th>
+                <th>Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+                {% for appointment in future_appointments %}
+                <tr>
+                    <td><p>{{appointment.tasks}}</p></td>
+                    <td><p>{{appointment.date}}</p></td>
+                    <td><p>{{appointment.time}}</p></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+</table>
+                        
+                
+
+
+    <h2>Add Appointment</h2>
+        
+    <form action='/appointments/add' method='POST'>
+        {% csrf_token %}
+        Tasks:<input type="text" name="tasks">
+        <p></p>
+        Status:<select type="" name="status">
+        
+        <option value="Done">Done</option>
+        <option value="Pending">Pending</option>
+        <option value="Missed">Missed</option>
+       
+        </select>
+        <p></p>
+        Date:<input type="date" name="date" value="{{appointment.date}}">
+        <p></p>
+        Time:<input type="time" name="time" value="{{appointment.time}}">
+        <p></p>
+        <input type="submit" value="Add">
+    </form>
+        
+    </body>
+</html>
